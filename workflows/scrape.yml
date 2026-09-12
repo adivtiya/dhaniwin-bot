@@ -1,1 +1,27 @@
+name: Dhaniwin Free 24/7 Scraper
 
+on:
+  schedule:
+    # Yeh har 5 minute mein automatically run hota rahega (Laptop band ho tab bhi!)
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # Isse tu manually bhi click karke run kar sakta hai
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install supabase requests
+
+      - name: Run Scraper
+        run: |
+          python scraper.py
